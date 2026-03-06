@@ -12,12 +12,16 @@ import { useGetMoodsQuery, useDeleteMoodMutation } from "@/services/moodApi";
 import { moodEmojis, moodToText, moodToLabel } from "@/utils/moodColor";
 import { parseError } from "@/utils/errorParser";
 import type { MoodEntry } from "@/types/mood.types";
+import { useAppSelector } from "@/app/hooks";
+import { useNavigate } from "react-router-dom";
 
 export function MoodHistory() {
   const [page, setPage] = useState(1);
   const [editEntry, setEditEntry] = useState<MoodEntry | null>(null);
 
   const { data, isLoading } = useGetMoodsQuery({ page, limit: 10 });
+  const user = useAppSelector((s) => s.auth.user);
+  const navigate = useNavigate();
   const [deleteMood] = useDeleteMoodMutation();
 
   const handleDelete = async (id: string) => {
@@ -153,6 +157,21 @@ export function MoodHistory() {
       >
         <MoodLogForm onSuccess={() => setEditEntry(null)} />
       </Modal>
+      {data?.planLimitApplied && (
+        <div className="card p-4 border-brand-500/30 bg-brand-500/5 flex flex-col sm:flex-row sm:items-center gap-3">
+          <div className="flex-1">
+            <p className="text-sm font-medium text-brand-400">
+              📅 Showing last 30 days only
+            </p>
+            <p className="text-xs text-gray-500 mt-0.5">
+              Upgrade to Pro to access your full mood history.
+            </p>
+          </div>
+          <Button size="sm" onClick={() => navigate("/app/billing")}>
+            Upgrade to Pro
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

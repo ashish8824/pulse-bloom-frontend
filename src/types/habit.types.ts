@@ -50,19 +50,27 @@ export interface CreateHabitRequest {
 export interface UpdateHabitRequest {
   title?: string;
   description?: string;
+  frequency?: HabitFrequency;
   category?: HabitCategory;
   color?: string;
   icon?: string;
   targetPerWeek?: number;
+  reminderOn?: boolean;
+  reminderTime?: string;
 }
 
 export interface CompleteHabitRequest {
   note?: string;
 }
 
+// Matches backend: log only has { id, date, note } — not the full HabitLog shape
 export interface CompleteHabitResponse {
   message: string;
-  log: HabitLog;
+  log: {
+    id: string;
+    date: string;
+    note?: string | null;
+  };
   currentStreak: number;
   milestone: {
     days: number;
@@ -86,7 +94,7 @@ export interface HabitAnalytics {
   currentStreak: number;
   longestStreak: number;
   missedPeriods: number;
-  bestDayOfWeek: string;
+  bestDayOfWeek: string | null;
   consistencyScore: number;
 }
 
@@ -111,14 +119,20 @@ export interface HabitMonthlySummary {
   calendar: HabitCalendarDay[];
 }
 
+// Matches backend: { logs, total, page, limit, totalPages }
+export interface HabitLogEntry {
+  id: string;
+  date: string;
+  note?: string | null;
+  completed: boolean;
+}
+
 export interface HabitLogResponse {
-  data: HabitLog[];
-  pagination: {
-    total: number;
-    page: number;
-    limit: number;
-    totalPages: number;
-  };
+  logs: HabitLogEntry[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
 }
 
 export interface UpdateReminderRequest {

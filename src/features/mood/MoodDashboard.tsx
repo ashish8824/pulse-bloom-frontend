@@ -27,11 +27,14 @@ export function MoodDashboard() {
     days: 91,
   });
 
-  const burnoutVariant = {
-    Low: "success",
-    Moderate: "warning",
-    High: "danger",
-  } as const;
+  // ── Backend returns "Insufficient Data" as a riskLevel — handle it ──
+  const burnoutVariant = (level: string | undefined) => {
+    if (level === "Low") return "success" as const;
+    if (level === "Moderate") return "warning" as const;
+    if (level === "High") return "danger" as const;
+    if (level === "Insufficient Data") return "default" as const;
+    return "default" as const;
+  };
 
   const heatmapDays =
     heatmap?.heatmap.map((d) => ({
@@ -40,8 +43,17 @@ export function MoodDashboard() {
       count: d.count,
     })) ?? [];
 
+  const quickLinks = [
+    { label: "View Trends", path: "/app/mood/trends", emoji: "📈" },
+    { label: "Daily Insights", path: "/app/mood/insights", emoji: "🧠" },
+    { label: "Burnout Report", path: "/app/mood/burnout", emoji: "⚠️" },
+    { label: "Forecast", path: "/app/mood/forecast", emoji: "🔮" },
+    { label: "Sentiment", path: "/app/mood/sentiment", emoji: "💬" },
+  ];
+
   return (
     <div className="space-y-4 md:space-y-6">
+      {/* ── Header ── */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h2 className="text-lg md:text-xl font-bold text-gray-100">
@@ -66,8 +78,9 @@ export function MoodDashboard() {
         </div>
       </div>
 
-      {/* Summary cards */}
+      {/* ── Summary cards ── */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+        {/* Avg Mood */}
         <div className="card p-4 md:p-5 space-y-1">
           <p className="text-xs text-gray-500 flex items-center gap-1.5">
             <TrendingUp size={12} /> Avg Mood
@@ -88,6 +101,7 @@ export function MoodDashboard() {
           )}
         </div>
 
+        {/* Streak */}
         <div className="card p-4 md:p-5 space-y-1">
           <p className="text-xs text-gray-500 flex items-center gap-1.5">
             <Flame size={12} /> Streak
@@ -109,6 +123,7 @@ export function MoodDashboard() {
           )}
         </div>
 
+        {/* Total Entries */}
         <div className="card p-4 md:p-5 space-y-1">
           <p className="text-xs text-gray-500">Total Entries</p>
           {loadingAnalytics ? (
@@ -123,6 +138,7 @@ export function MoodDashboard() {
           )}
         </div>
 
+        {/* Burnout Risk */}
         <div className="card p-4 md:p-5 space-y-1">
           <p className="text-xs text-gray-500 flex items-center gap-1.5">
             <AlertTriangle size={12} /> Burnout Risk
@@ -136,7 +152,7 @@ export function MoodDashboard() {
                 <span className="text-sm font-normal text-gray-500">/100</span>
               </p>
               {burnout?.riskLevel && (
-                <Badge variant={burnoutVariant[burnout.riskLevel]} size="sm">
+                <Badge variant={burnoutVariant(burnout.riskLevel)} size="sm">
                   {burnout.riskLevel}
                 </Badge>
               )}
@@ -145,7 +161,7 @@ export function MoodDashboard() {
         </div>
       </div>
 
-      {/* Heatmap */}
+      {/* ── Heatmap ── */}
       <div className="card p-4 md:p-5">
         <h3 className="text-sm font-semibold text-gray-300 mb-4">
           Last 13 Weeks
@@ -155,6 +171,7 @@ export function MoodDashboard() {
         ) : (
           <HeatmapGrid days={heatmapDays} mode="mood" />
         )}
+        {/* Legend */}
         <div className="flex items-center gap-2 mt-3">
           <span className="text-xs text-gray-600">Less</span>
           {[0, 1, 2, 3, 4, 5].map((v) => (
@@ -179,24 +196,23 @@ export function MoodDashboard() {
         </div>
       </div>
 
-      {/* Quick links */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        {[
-          { label: "View Trends", path: "/app/mood/trends", emoji: "📈" },
-          { label: "Daily Insights", path: "/app/mood/insights", emoji: "🧠" },
-          { label: "Burnout Report", path: "/app/mood/burnout", emoji: "⚠️" },
-        ].map(({ label, path, emoji }) => (
+      {/* ── Quick links — 2 col mobile, 3 col sm, 5 col lg ── */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        {quickLinks.map(({ label, path, emoji }) => (
           <button
             key={path}
             onClick={() => navigate(path)}
-            className="card p-4 flex items-center gap-3 hover:border-gray-700 transition-colors text-left"
+            className="card p-4 flex flex-col sm:flex-row items-center gap-2 sm:gap-3 hover:border-gray-700 transition-colors text-center sm:text-left"
           >
             <span className="text-2xl">{emoji}</span>
-            <span className="text-sm font-medium text-gray-300">{label}</span>
+            <span className="text-xs sm:text-sm font-medium text-gray-300">
+              {label}
+            </span>
           </button>
         ))}
       </div>
 
+      {/* ── Log Mood Modal ── */}
       <Modal
         isOpen={logOpen}
         onClose={() => setLogOpen(false)}

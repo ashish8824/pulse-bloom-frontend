@@ -1,22 +1,25 @@
 import { baseApi } from "./baseApi";
 import type {
   MoodEntry,
+  CreateMood,
+  UpdateMood,
   MoodListResponse,
-  CreateMoodRequest,
-  UpdateMoodRequest,
   MoodAnalytics,
   MoodStreak,
   MoodHeatmapResponse,
   MoodMonthlySummary,
   MoodDailyInsights,
-  WeeklyTrendResponse,
-  RollingAverageResponse,
+  WeeklyTrend,
+  RollingAverageDay,
   BurnoutRisk,
+  SentimentTrendsResponse,
+  MoodForecastResponse,
 } from "@/types/mood.types";
 
 export const moodApi = baseApi.injectEndpoints({
-  endpoints: (builder) => ({
-    createMood: builder.mutation<MoodEntry, CreateMoodRequest>({
+  endpoints: (build) => ({
+    // ── CREATE ───────────────────────────────────────────────────
+    createMood: build.mutation<MoodEntry, CreateMood>({
       query: (body) => ({ url: "/mood", method: "POST", body }),
       invalidatesTags: [
         "MoodEntry",
@@ -28,23 +31,28 @@ export const moodApi = baseApi.injectEndpoints({
       ],
     }),
 
-    getMoods: builder.query<
+    // ── LIST — paginated ─────────────────────────────────────────
+    getMoods: build.query<
       MoodListResponse,
-      { page?: number; limit?: number; startDate?: string; endDate?: string }
+      {
+        page?: number;
+        limit?: number;
+        startDate?: string;
+        endDate?: string;
+      }
     >({
-      query: (params) => ({ url: "/mood", params }),
+      query: (params = {}) => ({ url: "/mood", params }),
       providesTags: ["MoodEntry"],
     }),
 
-    getMoodById: builder.query<MoodEntry, string>({
+    // ── SINGLE ───────────────────────────────────────────────────
+    getMoodById: build.query<MoodEntry, string>({
       query: (id) => `/mood/${id}`,
       providesTags: ["MoodEntry"],
     }),
 
-    updateMood: builder.mutation<
-      MoodEntry,
-      { id: string; body: UpdateMoodRequest }
-    >({
+    // ── UPDATE ───────────────────────────────────────────────────
+    updateMood: build.mutation<MoodEntry, { id: string; body: UpdateMood }>({
       query: ({ id, body }) => ({ url: `/mood/${id}`, method: "PATCH", body }),
       invalidatesTags: [
         "MoodEntry",
@@ -54,7 +62,8 @@ export const moodApi = baseApi.injectEndpoints({
       ],
     }),
 
-    deleteMood: builder.mutation<{ message: string }, string>({
+    // ── DELETE ───────────────────────────────────────────────────
+    deleteMood: build.mutation<{ message: string }, string>({
       query: (id) => ({ url: `/mood/${id}`, method: "DELETE" }),
       invalidatesTags: [
         "MoodEntry",
@@ -66,28 +75,32 @@ export const moodApi = baseApi.injectEndpoints({
       ],
     }),
 
-    getMoodAnalytics: builder.query<
+    // ── ANALYTICS ────────────────────────────────────────────────
+    getMoodAnalytics: build.query<
       MoodAnalytics,
-      { startDate?: string; endDate?: string } | void
+      {
+        startDate?: string;
+        endDate?: string;
+      } | void
     >({
       query: (params) => ({ url: "/mood/analytics", params: params ?? {} }),
       providesTags: ["MoodAnalytics"],
     }),
 
-    getMoodStreak: builder.query<MoodStreak, void>({
+    // ── STREAK ───────────────────────────────────────────────────
+    getMoodStreak: build.query<MoodStreak, void>({
       query: () => "/mood/streak",
       providesTags: ["MoodStreak"],
     }),
 
-    getMoodHeatmap: builder.query<
-      MoodHeatmapResponse,
-      { days?: number } | void
-    >({
-      query: (params) => ({ url: "/mood/heatmap", params: params ?? {} }),
+    // ── HEATMAP ──────────────────────────────────────────────────
+    getMoodHeatmap: build.query<MoodHeatmapResponse, { days?: number }>({
+      query: (params) => ({ url: "/mood/heatmap", params }),
       providesTags: ["MoodHeatmap"],
     }),
 
-    getMoodMonthlySummary: builder.query<
+    // ── MONTHLY SUMMARY ── fixed URL: /mood/summary/monthly ──────
+    getMoodMonthlySummary: build.query<
       MoodMonthlySummary,
       { month?: string } | void
     >({
@@ -98,9 +111,13 @@ export const moodApi = baseApi.injectEndpoints({
       providesTags: ["MoodSummary"],
     }),
 
-    getMoodDailyInsights: builder.query<
+    // ── DAILY INSIGHTS ── fixed URL: /mood/insights/daily ────────
+    getMoodDailyInsights: build.query<
       MoodDailyInsights,
-      { startDate?: string; endDate?: string } | void
+      {
+        startDate?: string;
+        endDate?: string;
+      } | void
     >({
       query: (params) => ({
         url: "/mood/insights/daily",
@@ -109,21 +126,70 @@ export const moodApi = baseApi.injectEndpoints({
       providesTags: ["MoodInsights"],
     }),
 
-    getWeeklyTrends: builder.query<WeeklyTrendResponse, void>({
-      query: () => "/mood/trends/weekly",
+    // ── WEEKLY TRENDS ── fixed URL: /mood/trends/weekly ──────────
+    getWeeklyTrends: build.query<
+      { weeklyTrends: WeeklyTrend[] },
+      {
+        startDate?: string;
+        endDate?: string;
+      } | void
+    >({
+      query: (params) => ({
+        url: "/mood/trends/weekly",
+        params: params ?? {},
+      }),
       providesTags: ["MoodTrends"],
     }),
 
-    getRollingAverage: builder.query<RollingAverageResponse, void>({
-      query: () => "/mood/trends/rolling",
+    // ── ROLLING AVERAGE ── fixed URL: /mood/trends/rolling ───────
+    getRollingAverage: build.query<
+      { rollingAverage: RollingAverageDay[] },
+      {
+        startDate?: string;
+        endDate?: string;
+      } | void
+    >({
+      query: (params) => ({
+        url: "/mood/trends/rolling",
+        params: params ?? {},
+      }),
       providesTags: ["MoodRolling"],
     }),
 
-    getBurnoutRisk: builder.query<BurnoutRisk, void>({
-      query: () => "/mood/burnout-risk",
+    // ── BURNOUT RISK ── fixed URL: /mood/burnout-risk ─────────────
+    getBurnoutRisk: build.query<
+      BurnoutRisk,
+      {
+        startDate?: string;
+        endDate?: string;
+      } | void
+    >({
+      query: (params) => ({
+        url: "/mood/burnout-risk",
+        params: params ?? {},
+      }),
       providesTags: ["BurnoutRisk"],
     }),
+
+    // ── NEW: SENTIMENT TRENDS ── /mood/sentiment/trends ──────────
+    getSentimentTrends: build.query<SentimentTrendsResponse, void>({
+      query: () => "/mood/sentiment/trends",
+      providesTags: ["MoodTrends"],
+    }),
+
+    // ── NEW: MOOD FORECAST ── /mood/forecast ─────────────────────
+    getMoodForecast: build.query<
+      MoodForecastResponse,
+      { days?: number } | void
+    >({
+      query: (params) => ({
+        url: "/mood/forecast",
+        params: params ?? {},
+      }),
+      // No cache tag — forecast changes with time, not mutations
+    }),
   }),
+  overrideExisting: false,
 });
 
 export const {
@@ -140,4 +206,6 @@ export const {
   useGetWeeklyTrendsQuery,
   useGetRollingAverageQuery,
   useGetBurnoutRiskQuery,
+  useGetSentimentTrendsQuery, // 🆕
+  useGetMoodForecastQuery, // 🆕
 } = moodApi;

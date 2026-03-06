@@ -17,6 +17,8 @@ import { MoodHistory } from "@/features/mood/MoodHistory";
 import { MoodTrendChart } from "@/features/mood/MoodTrendChart";
 import { MoodInsights } from "@/features/mood/MoodInsights";
 import { BurnoutRiskCard } from "@/features/mood/BurnoutRiskCard";
+import { MoodForecast } from "@/features/mood/MoodForecast";
+import { MoodSentiment } from "@/features/mood/MoodSentiment";
 
 // Habit pages
 import { HabitDashboard } from "@/features/habits/HabitDashboard";
@@ -86,6 +88,8 @@ export const router = createBrowserRouter([
           { path: "/app/mood/trends", element: <MoodTrendChart /> },
           { path: "/app/mood/insights", element: <MoodInsights /> },
           { path: "/app/mood/burnout", element: <BurnoutRiskCard /> },
+          { path: "/app/mood/forecast", element: <MoodForecast /> },
+          { path: "/app/mood/sentiment", element: <MoodSentiment /> },
 
           // Habits
           { path: "/app/habits", element: <HabitDashboard /> },
