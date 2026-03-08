@@ -64,78 +64,100 @@ export default function HabitCard({
 
   return (
     <div
-      className="card p-4 flex items-center gap-4 cursor-pointer hover:border-gray-700 transition-all group"
+      className={`card p-3 sm:p-4 flex items-center gap-3 cursor-pointer transition-all group
+        hover:border-gray-700 hover:bg-gray-800/50
+        ${isCompletedToday ? "opacity-70" : ""}`}
       onClick={() => navigate(`/app/habits/${habit.id}`)}
     >
+      {/* ── Drag handle (desktop only) ── */}
       <div
         {...dragHandleProps}
-        className="text-gray-600 cursor-grab active:cursor-grabbing hidden sm:block"
+        className="hidden sm:flex text-gray-600 hover:text-gray-400 cursor-grab active:cursor-grabbing select-none flex-shrink-0 px-0.5"
         onClick={(e) => e.stopPropagation()}
       >
         ⠿
       </div>
 
+      {/* ── Icon ── */}
       <div
-        className="text-2xl w-10 h-10 flex items-center justify-center rounded-xl bg-gray-800 flex-shrink-0"
-        style={{ borderColor: habit.color, borderWidth: habit.color ? 1 : 0 }}
+        className="text-xl w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-gray-800 flex-shrink-0"
+        style={{
+          borderColor: habit.color ?? "transparent",
+          borderWidth: habit.color ? 1 : 0,
+        }}
       >
         {habit.icon ?? "✅"}
       </div>
 
+      {/* ── Title + badges ── */}
       <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className="font-semibold text-gray-100 truncate">
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <span
+            className={`font-semibold text-sm sm:text-base truncate max-w-[120px] sm:max-w-none
+              ${isCompletedToday ? "line-through text-gray-400" : "text-gray-100"}`}
+          >
             {habit.title}
           </span>
-          <Badge variant={CATEGORY_COLORS[habit.category] as any} size="sm">
-            {habit.category}
-          </Badge>
+          {/* Badges — hide on very small screens to avoid overflow */}
+          <span className="hidden xs:inline-flex">
+            <Badge variant={CATEGORY_COLORS[habit.category] as any} size="sm">
+              {habit.category}
+            </Badge>
+          </span>
           <Badge variant="default" size="sm">
             {habit.frequency}
           </Badge>
         </div>
         {habit.description && (
-          <p className="text-xs text-gray-500 mt-0.5 truncate">
+          <p className="text-xs text-gray-500 mt-0.5 truncate hidden sm:block">
             {habit.description}
           </p>
         )}
       </div>
 
-      <div className="flex items-center gap-1 text-orange-400 text-sm font-bold flex-shrink-0">
-        <Flame size={14} />
-        <span>-</span>
+      {/* ── Streak indicator ── */}
+      <div className="hidden sm:flex items-center gap-1 text-orange-400 text-xs font-bold flex-shrink-0">
+        <Flame size={13} />
+        <span>—</span>
       </div>
 
+      {/* ── Actions ── */}
       <div
-        className="flex items-center gap-2 flex-shrink-0"
+        className="flex items-center gap-1.5 flex-shrink-0"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex gap-1 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+        {/* Edit + Delete — always visible on mobile, hover-only on desktop */}
+        <div className="flex gap-0.5 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
           <button
-            className="p-1.5 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-gray-200"
+            className="p-1.5 rounded-lg hover:bg-gray-700 text-gray-500 hover:text-gray-200 transition-colors"
             onClick={(e) => {
               e.stopPropagation();
               onEdit(habit);
             }}
+            title="Edit"
           >
-            <Pencil size={14} />
+            <Pencil size={13} />
           </button>
           <button
-            className="p-1.5 rounded-lg hover:bg-red-900/40 text-gray-400 hover:text-red-400"
+            className="p-1.5 rounded-lg hover:bg-red-900/40 text-gray-500 hover:text-red-400 transition-colors"
             onClick={handleDelete}
+            title="Delete"
           >
-            <Trash2 size={14} />
+            <Trash2 size={13} />
           </button>
         </div>
 
+        {/* Complete / Undo button */}
         {isCompletedToday ? (
           <Button
             variant="ghost"
             size="sm"
             onClick={handleUndo}
             loading={undoing}
+            className="text-xs px-2 sm:px-3"
           >
-            <RotateCcw size={14} className="mr-1" /> Undo
+            <RotateCcw size={13} className="mr-1" />
+            <span className="hidden sm:inline">Undo</span>
           </Button>
         ) : (
           <Button
@@ -143,8 +165,10 @@ export default function HabitCard({
             size="sm"
             onClick={handleComplete}
             loading={completing}
+            className="text-xs px-2 sm:px-3"
           >
-            <CheckCircle size={14} className="mr-1" /> Done
+            <CheckCircle size={13} className="mr-1" />
+            <span>Done</span>
           </Button>
         )}
       </div>

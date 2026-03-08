@@ -25,8 +25,15 @@ import { HabitDashboard } from "@/features/habits/HabitDashboard";
 import { HabitDetailPage } from "@/features/habits/HabitDetailPage";
 import { ArchivedHabits } from "@/features/habits/ArchivedHabits";
 
-// Other pages
+// AI pages
 import { AiInsightsPage } from "@/features/ai/AiInsightsPage";
+import { AiChatPage } from "@/features/ai/AiChatPage";
+
+// Analytics pages ← Phase 11
+import { CorrelationPage } from "@/features/analytics/CorrelationPage";
+import { HabitMatrixPage } from "@/features/analytics/HabitMatrixPage";
+
+// Other pages
 import { BillingPage } from "@/features/billing/BillingPage";
 import { ProfilePage } from "@/features/profile/ProfilePage";
 import { DashboardPage } from "../features/dashboard/DashboardPage";
@@ -81,8 +88,10 @@ export const router = createBrowserRouter([
       {
         element: <AppLayout />,
         children: [
-          // Mood
+          // Dashboard
           { path: "/app/dashboard", element: <DashboardPage /> },
+
+          // Mood
           { path: "/app/mood", element: <MoodDashboard /> },
           { path: "/app/mood/history", element: <MoodHistory /> },
           { path: "/app/mood/trends", element: <MoodTrendChart /> },
@@ -96,8 +105,15 @@ export const router = createBrowserRouter([
           { path: "/app/habits/archived", element: <ArchivedHabits /> },
           { path: "/app/habits/:id", element: <HabitDetailPage /> },
 
-          // Other
+          // AI
           { path: "/app/ai", element: <AiInsightsPage /> },
+          { path: "/app/ai/chat", element: <AiChatPage /> },
+
+          // Analytics ← Phase 11
+          { path: "/app/analytics", element: <CorrelationPage /> },
+          { path: "/app/analytics/matrix", element: <HabitMatrixPage /> },
+
+          // Other
           { path: "/app/billing", element: <BillingPage /> },
           { path: "/app/profile", element: <ProfilePage /> },
         ],

@@ -5,12 +5,16 @@ type Resource =
   | "habit_create"
   | "mood_history"
   | "ai_insights"
+  | "ai_suggestions"
+  | "ai_chat"
   | "team_features";
 
 const planRequirements: Record<Resource, Plan> = {
   habit_create: "pro",
   mood_history: "pro",
   ai_insights: "pro",
+  ai_suggestions: "pro",
+  ai_chat: "pro",
   team_features: "enterprise",
 };
 

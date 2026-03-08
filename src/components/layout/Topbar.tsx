@@ -1,7 +1,8 @@
 import { useLocation } from "react-router-dom";
-import { Bell, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useAppSelector } from "@/app/hooks";
 import { Badge } from "@/components/ui/Badge";
+import { NotificationBell } from "@/features/notifications/NotificationBell";
 
 const pageTitles: Record<string, string> = {
   "/app/dashboard": "Dashboard",
@@ -14,6 +15,7 @@ const pageTitles: Record<string, string> = {
   "/app/habits": "Habits",
   "/app/habits/archived": "Archived Habits",
   "/app/ai": "AI Insights",
+  "/app/ai/chat": "AI Coach Chat",
   "/app/billing": "Billing",
   "/app/profile": "Profile",
 };
@@ -52,9 +54,8 @@ export function Topbar({ onMenuClick }: TopbarProps) {
       </div>
 
       <div className="flex items-center gap-2 md:gap-3">
-        <button className="p-2 rounded-lg text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">
-          <Bell size={18} />
-        </button>
+        {/* Notification bell with unread badge + drawer */}
+        <NotificationBell />
 
         {user?.plan && (
           <Badge

@@ -48,30 +48,38 @@ export interface PlanFeatures {
   habits: string;
   moodHistory: string;
   aiInsights: boolean;
+  aiChat: boolean;
   teamFeatures: boolean;
   price: string;
+  priceValue: number; // in paise for Razorpay
 }
 
 export const PLAN_FEATURES: Record<Plan, PlanFeatures> = {
   free: {
-    habits: "3 max",
-    moodHistory: "Last 30 days",
+    habits: "Up to 3 habits",
+    moodHistory: "Last 30 days only",
     aiInsights: false,
+    aiChat: false,
     teamFeatures: false,
     price: "₹0/mo",
+    priceValue: 0,
   },
   pro: {
-    habits: "Unlimited",
+    habits: "Unlimited habits",
     moodHistory: "Full history",
     aiInsights: true,
+    aiChat: true,
     teamFeatures: false,
-    price: "₹999/mo",
+    price: "₹299/mo",
+    priceValue: 29900,
   },
   enterprise: {
-    habits: "Unlimited",
+    habits: "Unlimited habits",
     moodHistory: "Full history",
     aiInsights: true,
+    aiChat: true,
     teamFeatures: true,
-    price: "₹2999/mo",
+    price: "₹799/mo",
+    priceValue: 79900,
   },
 };

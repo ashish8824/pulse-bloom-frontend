@@ -9,6 +9,10 @@ import {
   User,
   LogOut,
   X,
+  BarChart2,
+  Trophy,
+  Swords,
+  Users,
 } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { logout } from "@/features/auth/authSlice";
@@ -19,7 +23,11 @@ const navItems = [
   { to: "/app/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { to: "/app/mood", icon: Smile, label: "Mood" },
   { to: "/app/habits", icon: Target, label: "Habits" },
-  { to: "/app/ai", icon: Sparkles, label: "AI Insights" },
+  { to: "/app/ai", icon: Sparkles, label: "AI Insights", proOnly: true },
+  { to: "/app/analytics", icon: BarChart2, label: "Analytics" },
+  { to: "/app/badges", icon: Trophy, label: "Badges" },
+  { to: "/app/challenges", icon: Swords, label: "Challenges" },
+  { to: "/app/community", icon: Users, label: "Community" },
   { to: "/app/billing", icon: CreditCard, label: "Billing" },
   { to: "/app/profile", icon: User, label: "Profile" },
 ];
@@ -48,7 +56,6 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
   };
 
   const handleNavClick = () => {
-    // Close drawer on mobile after navigating
     onClose();
   };
 
@@ -61,22 +68,18 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
   return (
     <aside
       className={clsx(
-        // Base styles
         "h-screen bg-gray-900 border-r border-gray-800 flex flex-col z-30 transition-transform duration-300 ease-in-out",
-        // Desktop: always visible, static in flow
         "lg:relative lg:translate-x-0 lg:w-64",
-        // Mobile: fixed drawer, slides in/out
         "fixed w-72",
         isOpen ? "translate-x-0" : "-translate-x-full",
       )}
     >
-      {/* Logo + mobile close button */}
+      {/* Logo + mobile close */}
       <div className="px-6 py-5 border-b border-gray-800 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="text-2xl">🌸</span>
           <span className="text-lg font-bold text-brand-400">PulseBloom</span>
         </div>
-        {/* Close button — mobile only */}
         <button
           onClick={onClose}
           className="lg:hidden p-1.5 rounded-lg text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors"
@@ -87,7 +90,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
       {/* Nav */}
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-        {navItems.map(({ to, icon: Icon, label }) => (
+        {navItems.map(({ to, icon: Icon, label, proOnly }) => (
           <NavLink
             key={to}
             to={to}
@@ -103,7 +106,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           >
             <Icon size={18} />
             {label}
-            {label === "AI Insights" && user?.plan === "free" && (
+            {proOnly && user?.plan === "free" && (
               <Badge variant="purple" size="sm" className="ml-auto">
                 Pro
               </Badge>
