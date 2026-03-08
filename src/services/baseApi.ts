@@ -8,19 +8,15 @@ import { logout, updateAccessToken } from "@/features/auth/authSlice";
 import type { RootState } from "@/app/store";
 import type { TokenResponse } from "@/types/auth.types";
 
-// 1. Raw base query — attaches Bearer token
 const rawBaseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_API_BASE_URL,
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.accessToken;
-    if (token) {
-      headers.set("Authorization", `Bearer ${token}`);
-    }
+    if (token) headers.set("Authorization", `Bearer ${token}`);
     return headers;
   },
 });
 
-// 2. Wrapper — intercepts 401 and refreshes token
 const baseQueryWithReauth: BaseQueryFn<
   string | FetchArgs,
   unknown,
@@ -30,18 +26,12 @@ const baseQueryWithReauth: BaseQueryFn<
 
   if (result.error && result.error.status === 401) {
     const refreshToken = (api.getState() as RootState).auth.refreshToken;
-
     if (refreshToken) {
       const refreshResult = await rawBaseQuery(
-        {
-          url: "/auth/refresh-token",
-          method: "POST",
-          body: { refreshToken },
-        },
+        { url: "/auth/refresh-token", method: "POST", body: { refreshToken } },
         api,
         extraOptions,
       );
-
       if (refreshResult.data) {
         api.dispatch(updateAccessToken(refreshResult.data as TokenResponse));
         result = await rawBaseQuery(args, api, extraOptions);
@@ -56,7 +46,6 @@ const baseQueryWithReauth: BaseQueryFn<
   return result;
 };
 
-// 3. Base API — all endpoints inject into this
 export const baseApi = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReauth,
@@ -78,6 +67,14 @@ export const baseApi = createApi({
     "HabitHeatmap",
     "AiInsights",
     "BillingStatus",
+    "Badge",
+    "Notification",
+    "Challenge",
+    "MyChallenge",
+    "JoinedChallenge",
+    "ChallengeLeaderboard",
+    "CommunityFeed",
+    "UserProfile", // getMe + updatePreferences
   ],
   endpoints: () => ({}),
 });

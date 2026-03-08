@@ -1,8 +1,8 @@
 # 🌸 PulseBloom Frontend
 
-> **React + TypeScript + Vite** — Behavioral analytics platform frontend with mood tracking, habit building, AI insights, and subscription billing.
+> **React + TypeScript + Vite** — Behavioral analytics platform frontend with mood tracking, habit building, AI insights, subscription billing, challenges, community feed, and badge system.
 >
-> **Current Status: Phases 1–10 Complete. Next: Phase 11 — AI Insights + Billing.**
+> **Current Status: All Phases 1–12 Complete. ✅**
 
 ---
 
@@ -35,20 +35,20 @@ pulsebloom-frontend/
 │   │
 │   ├── services/
 │   │   ├── baseApi.ts                  ✅ RTK Query base + token refresh interceptor
-│   │   ├── authApi.ts                  ✅ 9 auth endpoints
+│   │   ├── authApi.ts                  ✅ 11 auth endpoints (incl. preferences + changePassword)
 │   │   ├── moodApi.ts                  ✅ 15 mood endpoints (all URLs verified)
 │   │   ├── habitApi.ts                 ✅ 15 habit endpoints (all URLs verified)
 │   │   ├── aiApi.ts                    ✅ 3 AI endpoints (insights, suggestions, chat)
 │   │   ├── analyticsApi.ts             ✅ 2 cross-module analytics endpoints
 │   │   ├── notificationApi.ts          ✅ 4 notification endpoints
-│   │   ├── badgeApi.ts                 ✅ Badge shelf endpoint
+│   │   ├── badgeApi.ts                 ✅ 1 badge shelf endpoint
 │   │   ├── challengeApi.ts             ✅ 7 challenge endpoints
 │   │   ├── communityApi.ts             ✅ 3 community feed endpoints
 │   │   └── billingApi.ts               ✅ 5 Razorpay billing endpoints
 │   │
 │   ├── features/
 │   │   ├── auth/
-│   │   │   ├── authSlice.ts            ✅ User, tokens, plan state
+│   │   │   ├── authSlice.ts            ✅ User, tokens, plan, preferences state
 │   │   │   ├── RegisterPage.tsx        ✅ Zod validation, password show/hide (Eye icon)
 │   │   │   ├── VerifyEmailPage.tsx     ✅ 6-box OTP, paste, backspace nav, 60s resend
 │   │   │   ├── LoginPage.tsx           ✅ Zod validation, password show/hide (Eye icon)
@@ -86,41 +86,45 @@ pulsebloom-frontend/
 │   │   │   └── MilestoneToast.tsx      ✅ 7/14/21/30/60/90/100/180/365 day streak toasts
 │   │   │
 │   │   ├── ai/
-│   │   │   ├── AiInsightsPage.tsx      🔜 Phase 11 — insights + suggestions + coach chat
-│   │   │   ├── InsightCard.tsx         🔜 Phase 11
-│   │   │   ├── SuggestionsPanel.tsx    🔜 Phase 11
-│   │   │   ├── AiChatPage.tsx          🔜 Phase 11
-│   │   │   └── AiPlanGate.tsx          🔜 Phase 11
+│   │   │   ├── AiInsightsPage.tsx      ✅ Insights grid + SuggestionsPanel + Talk to AI Coach button
+│   │   │   ├── InsightCard.tsx         ✅ type badge + severity chip + left border color
+│   │   │   ├── SuggestionsPanel.tsx    ✅ 3 suggestions + refresh + cached badge
+│   │   │   ├── AiChatPage.tsx          ✅ Chat UI, conversationId in localStorage, starter prompts
+│   │   │   └── AiPlanGate.tsx          ✅ Blurred overlay + upgrade CTA for free users
 │   │   │
 │   │   ├── analytics/
-│   │   │   ├── CorrelationPage.tsx     🔜 Phase 11 — mood ↔ habit lift
-│   │   │   └── HabitMatrixPage.tsx     🔜 Phase 11 — co-completion matrix
+│   │   │   ├── CorrelationPage.tsx     ✅ Bar chart completion vs skip + lift badges + detail cards
+│   │   │   └── HabitMatrixPage.tsx     ✅ Color-coded grid + pair cards + co-completion %
 │   │   │
 │   │   ├── notifications/
-│   │   │   ├── NotificationBell.tsx    🔜 Phase 11 — unread count badge
-│   │   │   └── NotificationDrawer.tsx  🔜 Phase 11 — paginated list + mark read
+│   │   │   ├── NotificationBell.tsx    ✅ Unread badge (polls 30s), opens drawer
+│   │   │   └── NotificationDrawer.tsx  ✅ Slide-in, mark read, deep-links, load more
 │   │   │
 │   │   ├── badges/
-│   │   │   └── BadgeShelfPage.tsx      🔜 Phase 11 — earned + locked badges
+│   │   │   └── BadgeShelfPage.tsx      ✅ Earned + locked badges with progress bar
 │   │   │
 │   │   ├── challenges/
-│   │   │   ├── ChallengesPage.tsx      🔜 Phase 11 — browse + create
-│   │   │   ├── ChallengeCard.tsx       🔜 Phase 11
-│   │   │   └── LeaderboardPage.tsx     🔜 Phase 11
+│   │   │   ├── ChallengesPage.tsx      ✅ Browse/My Progress/Created tabs + create modal
+│   │   │   ├── ChallengeCard.tsx       ✅ Browse/Joined/Mine card variants + share panel
+│   │   │   ├── LeaderboardPage.tsx     ✅ Ranked table, crown/medal icons, isMe highlight
+│   │   │   └── JoinChallengePage.tsx   ✅ Public invite link handler (/join?code=XXXXXXXX)
 │   │   │
 │   │   ├── community/
-│   │   │   ├── CommunityFeedPage.tsx   🔜 Phase 11 — anonymous feed + upvote
-│   │   │   └── CreatePostModal.tsx     🔜 Phase 11
+│   │   │   ├── CommunityFeedPage.tsx   ✅ Anonymous feed + sort + type filter + upvote + pagination
+│   │   │   └── CreatePostModal.tsx     ✅ Type selector + textarea + tag input + anonymity notice
 │   │   │
 │   │   ├── billing/
-│   │   │   ├── BillingPage.tsx         🔜 Phase 11
-│   │   │   ├── PricingPlans.tsx        🔜 Phase 11
-│   │   │   ├── RazorpayCheckout.tsx    🔜 Phase 11
-│   │   │   └── UpgradeBanner.tsx       🔜 Phase 11
+│   │   │   ├── BillingPage.tsx         ✅ Current plan card + cancel modal + pricing
+│   │   │   ├── PricingPlans.tsx        ✅ Free/Pro/Enterprise cards, ₹299/₹799, feature rows
+│   │   │   ├── RazorpayCheckout.tsx    ✅ Dynamic SDK load + order + verify + dispatch plan
+│   │   │   └── UpgradeBanner.tsx       ✅ Compact + full variants, dismissible
 │   │   │
-│   │   └── profile/
-│   │       ├── ProfilePage.tsx         🔜 Phase 12
-│   │       └── PreferencesForm.tsx     🔜 Phase 12 — mood reminder + weekly digest toggles
+│   │   ├── profile/
+│   │   │   ├── ProfilePage.tsx         ✅ Account info + password change + preferences
+│   │   │   └── PreferencesForm.tsx     ✅ Mood reminder toggle + time picker + weekly digest
+│   │   │
+│   │   └── errors/
+│   │       └── NotFoundPage.tsx        ✅ 404 page with back + dashboard nav
 │   │
 │   ├── components/
 │   │   ├── ui/
@@ -137,9 +141,11 @@ pulsebloom-frontend/
 │   │   │
 │   │   ├── layout/
 │   │   │   ├── AppLayout.tsx           ✅ Flex layout, manages sidebarOpen state
-│   │   │   ├── Sidebar.tsx             ✅ Nav links, user info, plan badge, logout
-│   │   │   ├── Topbar.tsx              ✅ Page title, hamburger (mobile), plan badge
+│   │   │   ├── Sidebar.tsx             ✅ Nav links incl. Analytics/Badges/Challenges/Community/Profile
+│   │   │   ├── Topbar.tsx              ✅ NotificationBell + all page titles wired
 │   │   │   └── AuthLayout.tsx          ✅ Centered card, background glows
+│   │   │
+│   │   ├── ErrorBoundary.tsx           ✅ Catches React crashes, refresh CTA
 │   │   │
 │   │   └── charts/
 │   │       ├── HeatmapGrid.tsx         ✅ Fixed-position tooltip (z-9999), never clipped
@@ -148,7 +154,8 @@ pulsebloom-frontend/
 │   │       └── DonutChart.tsx          ✅ Centre label, configurable color + size
 │   │
 │   ├── hooks/
-│   │   ├── usePlanGate.ts              ✅ Returns { canAccess, requiredPlan, currentPlan }
+│   │   ├── usePlanGate.ts              ✅ Resources: habit_create, mood_history, ai_insights,
+│   │   │                                   ai_suggestions, ai_chat, team_features
 │   │   ├── useDebounce.ts              ✅ Generic, configurable delay
 │   │   ├── useLocalStorage.ts          ✅ Type-safe get/set wrapper
 │   │   └── useTokenRefresh.ts          🔜 Future
@@ -163,18 +170,25 @@ pulsebloom-frontend/
 │   │   ├── auth.types.ts               ✅ User, AuthState, Plan, LoginRequest, TokenResponse, Preferences
 │   │   ├── mood.types.ts               ✅ All mood types + SentimentTrendsResponse + MoodForecastResponse
 │   │   ├── habit.types.ts              ✅ Habit, HabitLog, HabitLogEntry, HabitLogResponse, Analytics, Heatmap, Calendar
-│   │   ├── ai.types.ts                 ✅ AiInsight, InsightType, InsightSeverity, AiSuggestion, AiChatMessage
-│   │   ├── analytics.types.ts          ✅ CorrelationResponse, HabitMatrixResponse
+│   │   ├── ai.types.ts                 ✅ AiInsight, InsightType, InsightSeverity, AiSuggestion,
+│   │   │                                   AiChatMessage, AiSuggestionsResponse, AiChatResponse
+│   │   ├── analytics.types.ts          ✅ CorrelationResult, CorrelationResponse,
+│   │   │                                   HabitPairResult, HabitMatrixResponse
 │   │   ├── notification.types.ts       ✅ Notification, NotificationType, UnreadCountResponse
 │   │   ├── badge.types.ts              ✅ Badge, BadgeType, BadgeShelfResponse
-│   │   ├── challenge.types.ts          ✅ Challenge, ChallengeParticipant, LeaderboardResponse
-│   │   ├── community.types.ts          ✅ CommunityPost, PostType, FeedResponse
-│   │   └── billing.types.ts            ✅ Plan, Subscription, BillingStatus, Order, Verify
+│   │   ├── challenge.types.ts          ✅ Challenge, JoinedChallenge, ChallengeProgress,
+│   │   │                                   LeaderboardEntry, LeaderboardResponse + all request/response types
+│   │   ├── community.types.ts          ✅ CommunityPost, PostType, FeedResponse,
+│   │   │                                   CreatePostRequest, UpvoteResponse
+│   │   └── billing.types.ts            ✅ Plan, Subscription, BillingStatus, CreateOrderRequest,
+│   │                                       CreateOrderResponse, VerifyPaymentRequest,
+│   │                                       VerifyPaymentResponse, PLAN_FEATURES (₹299/₹799)
 │   │
 │   ├── router/
-│   │   └── index.tsx                   ✅ All routes wired
+│   │   └── index.tsx                   ✅ All routes wired — including /join (public invite link)
+│   │                                       and * → NotFoundPage (real 404)
 │   │
-│   ├── App.tsx                         ✅ RouterProvider + dark Toaster
+│   ├── App.tsx                         ✅ RouterProvider + ErrorBoundary + dark Toaster
 │   ├── main.tsx                        ✅ Redux Provider
 │   ├── index.css                       ✅ Tailwind + .card + .glass
 │   └── vite-env.d.ts                   ✅ ImportMetaEnv declarations
@@ -252,6 +266,8 @@ On 401:
 - **Access token in Redux memory only** — never localStorage (XSS safe)
 - **Refresh token in localStorage** — ProtectedRoute reads directly (not Redux) to avoid hydration race on hard refresh
 - **Mobile-first** — all components use Tailwind `sm:` `md:` `lg:` breakpoints consistently
+- **Error boundary** — `ErrorBoundary` wraps the entire app; crash → friendly reload screen
+- **Real 404** — unknown routes show `NotFoundPage` instead of redirecting to `/login`
 
 ---
 
@@ -263,6 +279,16 @@ On 401:
 | -------------- | ----------------- | -------- | ----------------------- |
 | `accessToken`  | Redux memory only | 15 min   | Never in DOM → XSS safe |
 | `refreshToken` | `localStorage`    | 7 days   | Survives page refresh   |
+
+### authSlice Actions
+
+```typescript
+setCredentials(TokenResponse); // login / OTP verify — sets user + tokens + localStorage
+updateAccessToken(TokenResponse); // 401 refresh — updates token without clearing user
+updateUserPlan(Plan); // billing upgrade/cancel — updates plan in Redux instantly
+updateUserPreferences(Preferences); // profile save — updates preferences in Redux instantly
+logout(); // clears all state + localStorage
+```
 
 ### Full Auth Flow
 
@@ -282,196 +308,298 @@ On 401:
    → POST /auth/refresh-token via rawBaseQuery
    → success: updateAccessToken() → retry original request
    → double 401: logout()
+
+6. Password change:
+   PATCH /auth/me/password → backend revokes all refresh tokens
+   → frontend dispatches logout() after 1.5s → /login
 ```
 
-### Auth Pages
+### IMPORTANT: Backend must return `plan` in login/refresh response
 
-| Page                 | Route              | Features                                               |
-| -------------------- | ------------------ | ------------------------------------------------------ |
-| `RegisterPage`       | `/register`        | Zod rules, Eye toggle on password                      |
-| `VerifyEmailPage`    | `/verify-email`    | 6 individual boxes, paste support, 60s resend cooldown |
-| `LoginPage`          | `/login`           | Eye toggle, auto-redirect if already logged in         |
-| `ForgotPasswordPage` | `/forgot-password` | Always shows success (prevents user enumeration)       |
-| `ResetPasswordPage`  | `/reset-password`  | `?token=` from URL, confirm password match             |
+```typescript
+// Backend login + refresh responses MUST include plan field:
+{
+  user: { id, email, name, isVerified, plan },  // ← plan REQUIRED
+  accessToken,
+  refreshToken,
+  accessTokenExpiresIn
+}
+```
 
 ---
 
 ## 🔌 RTK Query — All API Slices
 
-### baseApi.ts
+### baseApi.ts — Cache Tag Types
 
 ```typescript
-// Every request: attaches Authorization: Bearer <accessToken>
-// On 401: tries refresh via rawBaseQuery (bypasses interceptor to avoid infinite loop)
-// On refresh success: updateAccessToken() → retry original request
-// On refresh failure: logout() → /login
+tagTypes: [
+  "MoodEntry",
+  "MoodAnalytics",
+  "MoodStreak",
+  "MoodHeatmap",
+  "MoodSummary",
+  "MoodInsights",
+  "MoodTrends",
+  "MoodRolling",
+  "BurnoutRisk",
+  "Habit",
+  "HabitLog",
+  "HabitStreak",
+  "HabitAnalytics",
+  "HabitSummary",
+  "HabitHeatmap",
+  "AiInsights",
+  "BillingStatus",
+  "Badge", // badgeApi
+  "Notification", // notificationApi
+  "Challenge", // public browse list
+  "MyChallenge", // challenges I created
+  "JoinedChallenge", // challenges I joined
+  "ChallengeLeaderboard", // per-challenge leaderboard
+  "CommunityFeed", // community feed
+  "UserProfile", // getMe + updatePreferences
+];
+```
+
+### Auth API — `authApi.ts` (11 endpoints)
+
+```ts
+useRegisterMutation;
+useVerifyEmailMutation;
+useResendVerificationMutation;
+useLoginMutation;
+useRefreshTokenMutation;
+useLogoutMutation;
+useGetMeQuery; // GET  /auth/me — providesTags: ["UserProfile"]
+useForgotPasswordMutation;
+useResetPasswordMutation;
+useUpdatePreferencesMutation; // PATCH /auth/me/preferences
+useChangePasswordMutation; // PATCH /auth/me/password — sends { currentPassword, newPassword, confirmPassword }
 ```
 
 ### Mood API — `moodApi.ts` (15 endpoints)
 
 ```ts
-useCreateMoodMutation; // POST /mood
-useGetMoodsQuery; // GET  /mood  (+ planLimitApplied in response)
-useGetMoodByIdQuery; // GET  /mood/:id
-useUpdateMoodMutation; // PATCH /mood/:id
-useDeleteMoodMutation; // DELETE /mood/:id
-useGetMoodAnalyticsQuery; // GET  /mood/analytics
-useGetMoodStreakQuery; // GET  /mood/streak
-useGetMoodHeatmapQuery; // GET  /mood/heatmap?days=N
-useGetMoodMonthlySummaryQuery; // GET  /mood/summary/monthly
-useGetMoodDailyInsightsQuery; // GET  /mood/insights/daily
-useGetWeeklyTrendsQuery; // GET  /mood/trends/weekly
-useGetRollingAverageQuery; // GET  /mood/trends/rolling
-useGetBurnoutRiskQuery; // GET  /mood/burnout-risk
-useGetSentimentTrendsQuery; // GET  /mood/sentiment/trends
-useGetMoodForecastQuery; // GET  /mood/forecast
-```
-
-### Auth API — `authApi.ts` (9 endpoints)
-
-```ts
-(useRegisterMutation,
-  useVerifyEmailMutation,
-  useResendVerificationMutation,
-  useLoginMutation,
-  useRefreshTokenMutation,
-  useLogoutMutation,
-  useGetMeQuery,
-  useForgotPasswordMutation,
-  useResetPasswordMutation);
-// + PATCH /auth/me/preferences for mood reminder + weekly digest settings
+useCreateMoodMutation;
+useGetMoodsQuery; // GET /mood (+ planLimitApplied in response)
+useGetMoodByIdQuery;
+useUpdateMoodMutation;
+useDeleteMoodMutation;
+useGetMoodAnalyticsQuery;
+useGetMoodStreakQuery;
+useGetMoodHeatmapQuery;
+useGetMoodMonthlySummaryQuery;
+useGetMoodDailyInsightsQuery;
+useGetWeeklyTrendsQuery;
+useGetRollingAverageQuery;
+useGetBurnoutRiskQuery;
+useGetSentimentTrendsQuery;
+useGetMoodForecastQuery;
 ```
 
 ### Habit API — `habitApi.ts` (15 endpoints)
 
 ```ts
-useCreateHabitMutation; // POST   /habits
-useGetHabitsQuery; // GET    /habits
-useGetArchivedHabitsQuery; // GET    /habits/archived
-useUpdateHabitMutation; // PATCH  /habits/:id          ← habit fields only
-useUpdateReminderMutation; // PATCH  /habits/:id/reminder ← reminder fields ONLY (separate endpoint!)
-useDeleteHabitMutation; // DELETE /habits/:id          (soft-delete → archive)
-useRestoreHabitMutation; // PATCH  /habits/:id/restore
-useReorderHabitsMutation; // PATCH  /habits/reorder      body: { habits: [{ id, sortOrder }] }
-useCompleteHabitMutation; // POST   /habits/:id/complete
-useUndoCompletionMutation; // DELETE /habits/:id/complete
-useGetHabitStreakQuery; // GET    /habits/:id/streak
-useGetHabitAnalyticsQuery; // GET    /habits/:id/analytics
-useGetHabitMonthlySummaryQuery; // GET    /habits/:id/summary?month=YYYY-MM
-useGetHabitHeatmapQuery; // GET    /habits/:id/heatmap?days=N
-useGetHabitLogsQuery; // GET    /habits/:id/logs?page=N&limit=N
+useCreateHabitMutation;
+useGetHabitsQuery;
+useGetArchivedHabitsQuery;
+useUpdateHabitMutation; // PATCH /habits/:id — habit fields ONLY
+useUpdateReminderMutation; // PATCH /habits/:id/reminder — SEPARATE endpoint!
+useDeleteHabitMutation;
+useRestoreHabitMutation;
+useReorderHabitsMutation; // body: { habits: [{ id, sortOrder }] }
+useCompleteHabitMutation;
+useUndoCompletionMutation;
+useGetHabitStreakQuery;
+useGetHabitAnalyticsQuery;
+useGetHabitMonthlySummaryQuery;
+useGetHabitHeatmapQuery;
+useGetHabitLogsQuery;
 ```
 
-### AI API — `aiApi.ts` (3 endpoints — Phase 11)
+### AI API — `aiApi.ts` (3 endpoints)
 
 ```ts
-useGetAiInsightsQuery; // GET  /ai/insights(?refresh=true)  — Pro/Enterprise only
-useGetAiSuggestionsQuery; // GET  /ai/suggestions(?refresh=true) — Pro/Enterprise only
-useSendAiChatMutation; // POST /ai/chat { message, conversationId? } — Pro/Enterprise only
+useGetAiInsightsQuery; // GET /ai/insights(?refresh=true) — Pro/Enterprise only
+useGetAiSuggestionsQuery; // GET /ai/suggestions(?refresh=true) — Pro/Enterprise only
+useSendAiChatMutation; // POST /ai/chat { message, conversationId? }
 ```
 
-### Analytics API — `analyticsApi.ts` (2 endpoints — Phase 11)
+**AI Chat conversationId flow:**
+
+```
+First call: omit conversationId → backend creates thread → returns conversationId
+Subsequent: pass conversationId → continues same thread (last 10 messages to Groq)
+Stored in localStorage key: "pb_ai_conversation_id"
+Clear on "New conversation" button
+```
+
+### Analytics API — `analyticsApi.ts` (2 endpoints)
 
 ```ts
-useGetCorrelationQuery; // GET /analytics/correlation  — mood ↔ habit lift per habit
-useGetHabitMatrixQuery; // GET /analytics/habit-matrix — co-completion rates
+useGetCorrelationQuery; // GET /analytics/correlation
+useGetHabitMatrixQuery; // GET /analytics/habit-matrix
 ```
 
-### Notifications API — `notificationApi.ts` (4 endpoints — Phase 11)
+### Notifications API — `notificationApi.ts` (4 endpoints)
 
 ```ts
-useGetNotificationsQuery; // GET   /notifications?page=1&limit=20
-useGetUnreadCountQuery; // GET   /notifications/unread-count
-useMarkNotificationReadMutation; // PATCH /notifications/:id/read
-useMarkAllReadMutation; // PATCH /notifications/read-all
+useGetNotificationsQuery;
+useGetUnreadCountQuery; // polls every 30s via pollingInterval: 30_000
+useMarkNotificationReadMutation;
+useMarkAllReadMutation;
 ```
 
-### Badges API — `badgeApi.ts` (1 endpoint — Phase 11)
+**Deep-link map:**
+| Type | Navigate to |
+|---|---|
+| `STREAK_MILESTONE` | `/app/habits/:relatedId` |
+| `BADGE_EARNED` | `/app/badges` |
+| `CHALLENGE_UPDATE` | `/app/challenges/:relatedId` |
+| `WEEKLY_SUMMARY` | `/app/dashboard` |
+| `BURNOUT_RISK_CHANGED` | `/app/mood/burnout` |
+| `MOOD_REMINDER` | `/app/mood` |
+| `HABIT_REMINDER` | `/app/habits` |
+
+### Badges API — `badgeApi.ts` (1 endpoint)
 
 ```ts
 useGetBadgeShelfQuery; // GET /badges — earned (with dates) + locked (with hints)
 ```
 
-### Challenges API — `challengeApi.ts` (7 endpoints — Phase 11)
+**Response shape:**
+
+```typescript
+{
+  earned: [{ id, type, relatedId, earnedAt }],
+  locked: [{ type, hint }]
+}
+```
+
+**Badge types:**
+| Badge | Type | Unlock Condition |
+|-------|------|-----------------|
+| 🌱 First Step | `FIRST_STEP` | Log your first mood entry |
+| 🔥 Week One | `WEEK_ONE` | 7-day consecutive mood logging streak |
+| 💪 Iron Will | `IRON_WILL` | 30-day streak on any single habit |
+| 🧘 Mindful Month | `MINDFUL_MONTH` | Log mood every day of a full calendar month |
+| 🌸 Resilient | `RESILIENT` | Burnout risk drops from High → Low |
+| 🏅 Centurion | `CENTURION` | 100-day streak on any single habit |
+
+### Challenges API — `challengeApi.ts` (7 endpoints)
 
 ```ts
-useGetChallengesQuery; // GET  /challenges
+useGetChallengesQuery; // GET  /challenges?page&limit&active
 useCreateChallengeMutation; // POST /challenges
 useGetMyChallengesQuery; // GET  /challenges/mine
-useGetJoinedChallengesQuery; // GET  /challenges/joined
-useJoinChallengeMutation; // POST /challenges/:id/join
-useCompleteChallengeDay; // POST /challenges/:id/complete (free-form only)
+useGetJoinedChallengesQuery; // GET  /challenges/joined (includes progress per challenge)
+useJoinChallengeMutation; // POST /challenges/:id/join { joinCode? }
+useCompleteChallengeDayMutation; // POST /challenges/:id/complete (free-form only)
 useGetLeaderboardQuery; // GET  /challenges/:id/leaderboard
 ```
 
-### Community API — `communityApi.ts` (3 endpoints — Phase 11)
+**Private challenge sharing flow:**
 
-```ts
-useGetCommunityFeedQuery; // GET  /community (optional auth → hasUpvoted flag)
-useCreateCommunityPostMutation; // POST /community
-useToggleUpvoteMutation; // POST /community/:id/upvote
+```
+Creator creates private challenge → sees joinCode in "Created by Me" tab
+  → Copy Code button: copies 8-char code (e.g. A3F9E201)
+  → Copy Link button: copies full URL (e.g. http://localhost:3000/join?code=A3F9E201)
+Recipient opens link → /join?code=A3F9E201
+  → Auto-joins if authenticated
+  → Redirects to /login?redirect=/join?code=... if not authenticated
+  → Returns to /join after login to complete joining
 ```
 
-### Billing API — `billingApi.ts` (5 endpoints — Phase 11)
+### Community API — `communityApi.ts` (3 endpoints)
 
 ```ts
-useCreateOrderMutation; // POST   /billing/order
-useVerifyPaymentMutation; // POST   /billing/verify
-useGetBillingStatusQuery; // GET    /billing/status
-useCancelSubscriptionMutation; // DELETE /billing/subscription
+useGetCommunityFeedQuery; // GET  /community?sort&type&tag&page&limit
+useCreateCommunityPostMutation; // POST /community { type, content, tags[] }
+useToggleUpvoteMutation; // POST /community/:id/upvote (toggle)
+```
+
+### Billing API — `billingApi.ts` (5 endpoints)
+
+```ts
+useCreateOrderMutation;
+useVerifyPaymentMutation;
+useGetBillingStatusQuery;
+useCancelSubscriptionMutation;
+```
+
+**Razorpay flow:**
+
+```
+1. useCreateOrderMutation({ plan }) → { orderId, amount, currency, keyId }
+2. Load SDK: https://checkout.razorpay.com/v1/checkout.js (dynamic script tag)
+3. new window.Razorpay({ key: keyId, order_id: orderId, ... }).open()
+4. handler({ razorpay_payment_id, razorpay_order_id, razorpay_signature })
+5. useVerifyPaymentMutation({ razorpayOrderId, razorpayPaymentId, razorpaySignature, plan })
+6. dispatch(updateUserPlan(result.plan)) → all plan gates update instantly
 ```
 
 ### Cache Tag Invalidation
 
-| Tag              | Invalidated by                                                     |
-| ---------------- | ------------------------------------------------------------------ |
-| `MoodEntry`      | createMood, updateMood, deleteMood                                 |
-| `MoodAnalytics`  | createMood, updateMood, deleteMood                                 |
-| `MoodStreak`     | createMood, deleteMood                                             |
-| `MoodHeatmap`    | createMood, updateMood, deleteMood                                 |
-| `MoodSummary`    | createMood, updateMood, deleteMood                                 |
-| `BurnoutRisk`    | createMood, deleteMood                                             |
-| `Habit`          | createHabit, updateHabit, deleteHabit, reorderHabits, restoreHabit |
-| `HabitLog`       | completeHabit, undoCompletion                                      |
-| `HabitStreak`    | completeHabit, undoCompletion                                      |
-| `HabitAnalytics` | completeHabit, undoCompletion                                      |
-| `HabitHeatmap`   | completeHabit, undoCompletion                                      |
-| `Notification`   | markRead, markAllRead                                              |
-| `BillingStatus`  | verifyPayment, cancelSubscription                                  |
+| Tag                    | Invalidated by                                                     |
+| ---------------------- | ------------------------------------------------------------------ |
+| `MoodEntry`            | createMood, updateMood, deleteMood                                 |
+| `MoodAnalytics`        | createMood, updateMood, deleteMood                                 |
+| `MoodStreak`           | createMood, deleteMood                                             |
+| `MoodHeatmap`          | createMood, updateMood, deleteMood                                 |
+| `MoodSummary`          | createMood, updateMood, deleteMood                                 |
+| `BurnoutRisk`          | createMood, deleteMood                                             |
+| `Habit`                | createHabit, updateHabit, deleteHabit, reorderHabits, restoreHabit |
+| `HabitLog`             | completeHabit, undoCompletion                                      |
+| `HabitStreak`          | completeHabit, undoCompletion                                      |
+| `HabitAnalytics`       | completeHabit, undoCompletion                                      |
+| `HabitHeatmap`         | completeHabit, undoCompletion                                      |
+| `Notification`         | markRead, markAllRead                                              |
+| `BillingStatus`        | verifyPayment, cancelSubscription                                  |
+| `AiInsights`           | (manual refresh only via ?refresh=true param)                      |
+| `Challenge`            | createChallenge, joinChallenge                                     |
+| `MyChallenge`          | createChallenge                                                    |
+| `JoinedChallenge`      | joinChallenge, completeChallengeDay                                |
+| `ChallengeLeaderboard` | completeChallengeDay                                               |
+| `CommunityFeed`        | createCommunityPost, toggleUpvote                                  |
+| `UserProfile`          | updatePreferences                                                  |
 
 ---
 
 ## 🛣️ All Routes
 
-| Route                  | Component          | Auth | Status      |
-| ---------------------- | ------------------ | ---- | ----------- |
-| `/`                    | → `/app/dashboard` | ❌   | ✅          |
-| `/register`            | RegisterPage       | ❌   | ✅          |
-| `/verify-email`        | VerifyEmailPage    | ❌   | ✅          |
-| `/login`               | LoginPage          | ❌   | ✅          |
-| `/forgot-password`     | ForgotPasswordPage | ❌   | ✅          |
-| `/reset-password`      | ResetPasswordPage  | ❌   | ✅          |
-| `/app/dashboard`       | DashboardPage      | ✅   | ✅          |
-| `/app/mood`            | MoodDashboard      | ✅   | ✅          |
-| `/app/mood/history`    | MoodHistory        | ✅   | ✅          |
-| `/app/mood/trends`     | MoodTrendChart     | ✅   | ✅          |
-| `/app/mood/insights`   | MoodInsights       | ✅   | ✅          |
-| `/app/mood/burnout`    | BurnoutRiskCard    | ✅   | ✅          |
-| `/app/mood/forecast`   | MoodForecast       | ✅   | ✅          |
-| `/app/mood/sentiment`  | MoodSentiment      | ✅   | ✅          |
-| `/app/habits`          | HabitDashboard     | ✅   | ✅          |
-| `/app/habits/archived` | ArchivedHabits     | ✅   | ✅          |
-| `/app/habits/:id`      | HabitDetailPage    | ✅   | ✅          |
-| `/app/ai`              | AiInsightsPage     | ✅   | 🔜 Phase 11 |
-| `/app/ai/chat`         | AiChatPage         | ✅   | 🔜 Phase 11 |
-| `/app/analytics`       | CorrelationPage    | ✅   | 🔜 Phase 11 |
-| `/app/badges`          | BadgeShelfPage     | ✅   | 🔜 Phase 11 |
-| `/app/challenges`      | ChallengesPage     | ✅   | 🔜 Phase 11 |
-| `/app/challenges/:id`  | LeaderboardPage    | ✅   | 🔜 Phase 11 |
-| `/app/community`       | CommunityFeedPage  | ✅   | 🔜 Phase 11 |
-| `/app/billing`         | BillingPage        | ✅   | 🔜 Phase 11 |
-| `/app/profile`         | ProfilePage        | ✅   | 🔜 Phase 12 |
-| `*`                    | → `/login`         | ❌   | ✅          |
+| Route                   | Component          | Auth | Notes                             |
+| ----------------------- | ------------------ | ---- | --------------------------------- |
+| `/`                     | → `/app/dashboard` | ❌   | Redirect                          |
+| `/register`             | RegisterPage       | ❌   |                                   |
+| `/verify-email`         | VerifyEmailPage    | ❌   |                                   |
+| `/login`                | LoginPage          | ❌   |                                   |
+| `/forgot-password`      | ForgotPasswordPage | ❌   |                                   |
+| `/reset-password`       | ResetPasswordPage  | ❌   |                                   |
+| `/join`                 | JoinChallengePage  | ❌   | Auto-joins via `?code=` param     |
+| `/404`                  | NotFoundPage       | ❌   |                                   |
+| `/app/dashboard`        | DashboardPage      | ✅   |                                   |
+| `/app/mood`             | MoodDashboard      | ✅   |                                   |
+| `/app/mood/history`     | MoodHistory        | ✅   |                                   |
+| `/app/mood/trends`      | MoodTrendChart     | ✅   |                                   |
+| `/app/mood/insights`    | MoodInsights       | ✅   |                                   |
+| `/app/mood/burnout`     | BurnoutRiskCard    | ✅   |                                   |
+| `/app/mood/forecast`    | MoodForecast       | ✅   |                                   |
+| `/app/mood/sentiment`   | MoodSentiment      | ✅   |                                   |
+| `/app/habits`           | HabitDashboard     | ✅   |                                   |
+| `/app/habits/archived`  | ArchivedHabits     | ✅   |                                   |
+| `/app/habits/:id`       | HabitDetailPage    | ✅   |                                   |
+| `/app/ai`               | AiInsightsPage     | ✅   | Pro/Enterprise only               |
+| `/app/ai/chat`          | AiChatPage         | ✅   | Pro/Enterprise only               |
+| `/app/analytics`        | CorrelationPage    | ✅   |                                   |
+| `/app/analytics/matrix` | HabitMatrixPage    | ✅   |                                   |
+| `/app/badges`           | BadgeShelfPage     | ✅   |                                   |
+| `/app/challenges`       | ChallengesPage     | ✅   |                                   |
+| `/app/challenges/:id`   | LeaderboardPage    | ✅   |                                   |
+| `/app/community`        | CommunityFeedPage  | ✅   |                                   |
+| `/app/billing`          | BillingPage        | ✅   |                                   |
+| `/app/profile`          | ProfilePage        | ✅   |                                   |
+| `*`                     | NotFoundPage       | ❌   | Real 404 (not redirect to /login) |
 
 ---
 
@@ -500,8 +628,8 @@ brand: {
 
 | Breakpoint    | Sidebar                              | Grids   | Padding |
 | ------------- | ------------------------------------ | ------- | ------- |
-| Mobile `< lg` | Drawer (hamburger toggle + backdrop) | 2-col   | `p-4`   |
-| Desktop `lg+` | Always visible `w-64`                | 3–4 col | `p-6`   |
+| Mobile `< lg` | Drawer (hamburger toggle + backdrop) | 1–2 col | `p-4`   |
+| Desktop `lg+` | Always visible `w-64`                | 2–4 col | `p-6`   |
 
 ### Component Quick Reference
 
@@ -512,49 +640,62 @@ Button     → variant: primary|secondary|ghost|destructive|outline
 Badge      → variant: default|success|warning|danger|info|purple
            → size: sm|md
 
-Modal      → size: sm|md|lg|xl
+Modal      → size: sm|md|lg|xl  ← prop is "isOpen" (not "open")
            → Fixed overlay (never page-scrolls), flex-col panel, max-h-[90vh]
            → Body: flex-1 overflow-y-auto (modal scrolls internally)
            → Footer: sticky bottom-0 bg-gray-900 (always visible and clickable)
 
 EmptyState → icon?, title, description?, action?: { label, onClick }
+
+UpgradeBanner → compact?: boolean, dismissible?: boolean, message?: string
+              → Two variants: compact (inline) and full (card with icon)
 ```
+
+> ⚠️ **Modal prop is `isOpen`, NOT `open`** — passing `open` silently renders nothing.
 
 ---
 
-## 📊 Mood Module — Phase 9 Complete
+## 🔒 Plan-Aware UI
 
-### All Components
+### `usePlanGate(resource)` hook
 
-| Component         | Route                 | Status                                           |
-| ----------------- | --------------------- | ------------------------------------------------ |
-| `MoodDashboard`   | `/app/mood`           | ✅ Stats + heatmap + 5 quick nav links           |
-| `MoodLogForm`     | Modal                 | ✅ Emoji score, journal, tags                    |
-| `MoodHistory`     | `/app/mood/history`   | ✅ Paginated, plan limit banner                  |
-| `MoodTrendChart`  | `/app/mood/trends`    | ✅ Weekly + rolling avg                          |
-| `MoodInsights`    | `/app/mood/insights`  | ✅ DOW + TOD patterns (null-safe)                |
-| `BurnoutRiskCard` | `/app/mood/burnout`   | ✅ Donut + metrics (all riskLevels handled)      |
-| `MoodForecast`    | `/app/mood/forecast`  | ✅ 7-day prediction + signal breakdown           |
-| `MoodSentiment`   | `/app/mood/sentiment` | ✅ AI sentiment vs mood chart + divergence table |
+```ts
+const { canAccess, requiredPlan, currentPlan } = usePlanGate("ai_insights");
+```
+
+### Resource → Plan Requirements
+
+| Resource         | Free                         | Pro       | Enterprise |
+| ---------------- | ---------------------------- | --------- | ---------- |
+| `habit_create`   | Max 3 active habits          | Unlimited | Unlimited  |
+| `mood_history`   | 30 days (clamped by backend) | Full      | Full       |
+| `ai_insights`    | ❌ (AiPlanGate overlay)      | ✅        | ✅         |
+| `ai_suggestions` | ❌ (AiPlanGate overlay)      | ✅        | ✅         |
+| `ai_chat`        | ❌ (AiPlanGate overlay)      | ✅        | ✅         |
+| `team_features`  | ❌                           | ❌        | ✅         |
+
+---
+
+## 📊 Mood Module — Complete
 
 ### Backend API URLs (all verified)
 
 ```
-POST /mood
-GET  /mood                    ← planLimitApplied in response for free users
-GET  /mood/:id
-PATCH /mood/:id
+POST   /mood
+GET    /mood                    ← planLimitApplied in response for free users
+GET    /mood/:id
+PATCH  /mood/:id
 DELETE /mood/:id
-GET  /mood/streak
-GET  /mood/heatmap
-GET  /mood/analytics
-GET  /mood/burnout-risk        ← NOT /burnout
-GET  /mood/summary/monthly     ← NOT /monthly-summary
-GET  /mood/insights/daily      ← NOT /insights
-GET  /mood/trends/weekly       ← NOT /weekly
-GET  /mood/trends/rolling      ← NOT /rolling
-GET  /mood/sentiment/trends
-GET  /mood/forecast
+GET    /mood/streak
+GET    /mood/heatmap
+GET    /mood/analytics
+GET    /mood/burnout-risk        ← NOT /burnout
+GET    /mood/summary/monthly     ← NOT /monthly-summary
+GET    /mood/insights/daily      ← NOT /insights
+GET    /mood/trends/weekly       ← NOT /weekly
+GET    /mood/trends/rolling      ← NOT /rolling
+GET    /mood/sentiment/trends
+GET    /mood/forecast
 ```
 
 ### Mood Score System
@@ -570,263 +711,100 @@ GET  /mood/forecast
 
 ---
 
-## 🧘 Habits Module — Phase 10 Complete
-
-### All Components
-
-| Component            | Route                  | Key Features                                                                          |
-| -------------------- | ---------------------- | ------------------------------------------------------------------------------------- |
-| `HabitDashboard`     | `/app/habits`          | Stats row (active/done today/streak/archived), DnD list, free plan gate, create modal |
-| `HabitList`          | —                      | DragDropContext + Droppable, passes onCompleted/onUndone callbacks to each HabitCard  |
-| `HabitCard`          | —                      | Icon, category/frequency badges, complete/undo buttons, edit/delete, milestone toast  |
-| `HabitForm`          | Modal (create + edit)  | Zod validation, icon picker, color swatches, reminder toggle, split update endpoints  |
-| `HabitDetailPage`    | `/app/habits/:id`      | Done Today button, 2-col layout (analytics + log left, calendar + heatmap right)      |
-| `HabitAnalyticsCard` | —                      | DonutChart (consistency %), completion rate, streaks, missed periods, best day        |
-| `HabitCalendar`      | —                      | Monthly grid, prev/next nav, green = completed, today highlighted                     |
-| `HabitHeatmap`       | —                      | 365-day GitHub-style grid, maps data.heatmap array correctly                          |
-| `HabitLogHistory`    | —                      | Paginated 10/page, uses data.logs + data.totalPages                                   |
-| `ArchivedHabits`     | `/app/habits/archived` | Restore + permanent delete with confirmation                                          |
-| `MilestoneToast`     | —                      | Streak milestones at 7/14/21/30/60/90/100/180/365 days via react-hot-toast            |
+## 🧘 Habits Module — Complete
 
 ### Backend API URLs (all verified)
 
 ```
-POST   /habits                     ← Create (includes reminderOn/reminderTime)
-GET    /habits                     ← All active habits
+POST   /habits
+GET    /habits
 GET    /habits/archived            ← MUST be before /:id in router
 PATCH  /habits/reorder             ← body: { habits: [{ id, sortOrder }] } NOT a bare array
-PATCH  /habits/:id                 ← Habit fields ONLY (title, freq, category, color, icon, targetPerWeek)
-PATCH  /habits/:id/reminder        ← Reminder fields ONLY (reminderOn, reminderTime) — SEPARATE endpoint!
-DELETE /habits/:id                 ← Soft delete (archive)
+PATCH  /habits/:id                 ← Habit fields ONLY
+PATCH  /habits/:id/reminder        ← Reminder fields ONLY — SEPARATE endpoint!
+DELETE /habits/:id
 PATCH  /habits/:id/restore
 POST   /habits/:id/complete
-DELETE /habits/:id/complete        ← Undo (current period only)
+DELETE /habits/:id/complete
 GET    /habits/:id/streak
 GET    /habits/:id/analytics
-GET    /habits/:id/summary         ← { month, completionsThisMonth, completionRate, calendar[] }
-GET    /habits/:id/heatmap         ← { heatmap: [{ date, completed: 0|1 }] }
-GET    /habits/:id/logs            ← { logs[], total, page, limit, totalPages }
+GET    /habits/:id/summary
+GET    /habits/:id/heatmap
+GET    /habits/:id/logs
 ```
 
-### API Response Shapes — Critical Mappings
+### Critical API Response Shapes
 
-```ts
-// Complete habit response:
-// { message, log: { id, date, note }, currentStreak, milestone: { days, message } | null }
-// ← log.date NOT log.createdAt
-
-// Paginated logs:
-// { logs: HabitLogEntry[], total, page, limit, totalPages }
-// ← NOT { data, pagination } — use data.logs and data.totalPages directly
-
-// Heatmap:
-// { heatmap: [{ date: string, completed: 0 | 1 }] }
-// ← Map: data.heatmap.map(d => ({ date: d.date, value: d.completed }))
-
-// Monthly calendar:
-// { month, completionsThisMonth, completionRate, calendar: [{ date, completed: boolean }] }
-// ← Filter: data.calendar.filter(d => d.completed).map(d => d.date) → Set<string>
-
-// Reorder payload:
-// { habits: [{ id, sortOrder }] }  ← MUST wrap in object, NOT a bare array
+```typescript
+// Complete habit: { message, log: { id, date, note }, currentStreak, milestone | null }
+// Logs: { logs[], total, page, limit, totalPages } ← NOT { data, pagination }
+// Heatmap: { heatmap: [{ date, completed: 0|1 }] }
+// Calendar: { month, completionsThisMonth, completionRate, calendar: [{ date, completed }] }
+// Reorder: body must be { habits: [...] } NOT bare array
 ```
-
-### Key Implementation Notes
-
-**completedTodayIds tracking** — `GET /habits` does NOT return `isCompletedToday`. Tracked as `useState<Set<string>>` in `HabitDashboard`, updated via `onCompleted(id)` / `onUndone(id)` callbacks passed through `HabitList` → `HabitCard`.
-
-**Split update endpoints** — `PATCH /habits/:id` and `PATCH /habits/:id/reminder` are two completely separate backend routes. `HabitForm` calls them sequentially on edit:
-
-1. `updateHabit({ id, body: { title, frequency, category, color, icon, targetPerWeek } })`
-2. `updateReminder({ id, body: { reminderOn, reminderTime? } })`
-
-Sending `reminderOn` to `PATCH /:id` causes a 400 validation error from the backend.
-
-**Modal scroll architecture** — `Modal.tsx` uses a fixed overlay + `flex-col` panel (`max-h-[90vh]`). Body is `flex-1 overflow-y-auto` so the modal scrolls internally (not the page). Form footer uses `sticky bottom-0 bg-gray-900` so Cancel/Save buttons are always visible.
-
-**Reminder system** — `reminderOn + reminderTime` saved to backend. Backend cron job runs every minute and sends Gmail SMTP reminder emails at stored time. Already completed habits are silently skipped.
-
-### Bugs Fixed During Phase 10
-
-| Bug                               | Root Cause                                                                         | Fix                                                        |
-| --------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| Edit habit silent fail (400)      | `onSubmit` calling `updateHabit` twice — second call hit duplicate name check      | Removed duplicate call                                     |
-| Edit habit validation error (400) | `reminderOn` sent to `PATCH /:id` which rejects it                                 | Split into two sequential calls                            |
-| Save Changes button not clickable | Modal overlay was scrolling the page — footer rendered outside viewport click area | Fixed overlay + internal modal scroll + sticky footer      |
-| HabitLogHistory wrong data shape  | Using `data.data` and `data.pagination.totalPages`                                 | Fixed to `data.logs` and `data.totalPages`                 |
-| HabitCalendar wrong data shape    | Using `data.completedDates`                                                        | Fixed to filter `data.calendar` where `completed === true` |
-| HabitHeatmap wrong data shape     | Passing `data` directly to HeatmapGrid                                             | Fixed to map `data.heatmap` → `{ date, value }`            |
-| Reorder 400 error                 | Sending bare array to reorder endpoint                                             | Wrapped in `{ habits: [...] }` object                      |
-| Hard refresh redirect to login    | Reading `refreshToken` from Redux (not yet hydrated)                               | Read directly from `localStorage.getItem('refreshToken')`  |
 
 ---
 
-## 🔒 Plan-Aware UI
+## ⚔️ Challenges Module — Complete
 
-### `usePlanGate(resource)` hook
+### Key Notes
 
-```ts
-const { canAccess, requiredPlan, currentPlan } = usePlanGate("habit_create");
+- **Public challenges**: join by ID, no code needed
+- **Private challenges**: creator shares 8-char `joinCode` or full `/join?code=` URL
+- **Habit-linked**: progress auto-advances when linked habit is completed
+- **Free-form**: participants manually call `POST /challenges/:id/complete`
+- **Leaderboard**: sorted by `completionsCount` desc; ties broken by `completedAt` asc
+- **`isMe` flag**: backend returns this so frontend can highlight current user's row
+
+### Change Password — Important Backend Behaviour
+
 ```
+PATCH /auth/me/password requires ALL THREE fields:
+  { currentPassword, newPassword, confirmPassword }
 
-### Plan Limits
-
-| Resource         | Free                         | Pro       | Enterprise |
-| ---------------- | ---------------------------- | --------- | ---------- |
-| `habit_create`   | Max 3 active habits          | Unlimited | Unlimited  |
-| `mood_history`   | 30 days (clamped by backend) | Full      | Full       |
-| `ai_insights`    | ❌                           | ✅        | ✅         |
-| `ai_suggestions` | ❌                           | ✅        | ✅         |
-| `ai_chat`        | ❌                           | ✅        | ✅         |
-| `team_features`  | ❌                           | ❌        | ✅         |
-
-When free user hits habit limit: `HabitDashboard` shows `UpgradeBanner` instead of create button. Backend also enforces via `checkPlanLimit("habit_create")` middleware (returns 403).
+On success:
+  - All refresh tokens across all devices are REVOKED
+  - No new tokens issued — client must re-login
+  - Frontend auto-dispatches logout() after 1.5s
+```
 
 ---
 
-## 🤖 Phase 11 — AI Insights + Billing + Gamification (BUILD NEXT)
+## 🌐 Community Module — Complete
 
-### AI Features (Pro/Enterprise only)
+### Key Notes
 
-| Component          | Backend Endpoint      | Features                                                                      |
-| ------------------ | --------------------- | ----------------------------------------------------------------------------- |
-| `AiInsightsPage`   | `GET /ai/insights`    | Cross-correlated behavioral insights, SHA-256 cached, `?refresh=true` support |
-| `InsightCard`      | —                     | type badge + severity chip + title + description                              |
-| `SuggestionsPanel` | `GET /ai/suggestions` | 3 personalized habit suggestions with rationale + expectedMoodImpact          |
-| `AiChatPage`       | `POST /ai/chat`       | Conversational coach, `conversationId` threading, 90-day behavioral context   |
-| `AiPlanGate`       | —                     | Blurred fake cards + "Upgrade to Pro" CTA for Free users                      |
-
-**Insight types:** `correlation | streak | warning | positive | suggestion`
-**Severity:** `info (blue) | warning (amber) | success (green)`
-
-**AI Chat conversationId flow:**
-
-```
-First call: no conversationId → backend creates thread → returns conversationId
-Subsequent calls: pass conversationId → continues same thread (last 10 messages sent to Groq)
-Store conversationId in component state or localStorage
-```
-
-### Cross-Module Analytics (Phase 11)
-
-| Component         | Backend Endpoint              | Features                                                     |
-| ----------------- | ----------------------------- | ------------------------------------------------------------ |
-| `CorrelationPage` | `GET /analytics/correlation`  | Mood ↔ habit lift per habit — completionDayAvg vs skipDayAvg |
-| `HabitMatrixPage` | `GET /analytics/habit-matrix` | Co-completion rate for every habit pair with suggestions     |
-
-### Notifications (Phase 11)
-
-| Component            | Backend Endpoint                  | Features                                                 |
-| -------------------- | --------------------------------- | -------------------------------------------------------- |
-| `NotificationBell`   | `GET /notifications/unread-count` | Badge count in Topbar, auto-polls every 30s              |
-| `NotificationDrawer` | `GET /notifications` + mark-read  | Paginated list, unread first, deep-links via `relatedId` |
-
-**Notification types to handle in UI:**
-
-| Type                   | Deep-link Target       |
-| ---------------------- | ---------------------- |
-| `STREAK_MILESTONE`     | `/app/habits/:habitId` |
-| `BADGE_EARNED`         | `/app/badges`          |
-| `CHALLENGE_UPDATE`     | `/app/challenges/:id`  |
-| `WEEKLY_SUMMARY`       | `/app/dashboard`       |
-| `BURNOUT_RISK_CHANGED` | `/app/mood/burnout`    |
-| `MOOD_REMINDER`        | `/app/mood`            |
-| `HABIT_REMINDER`       | `/app/habits`          |
-
-### Badges (Phase 11)
-
-| Component        | Backend Endpoint | Features                                                  |
-| ---------------- | ---------------- | --------------------------------------------------------- |
-| `BadgeShelfPage` | `GET /badges`    | Earned (with dates) + locked (with hints), 6 total badges |
-
-**Badge types:**
-
-| Badge            | Unlock Condition                            |
-| ---------------- | ------------------------------------------- |
-| 🌱 First Step    | Log your first mood entry                   |
-| 🔥 Week One      | 7-day consecutive mood logging streak       |
-| 💪 Iron Will     | 30-day streak on any single habit           |
-| 🧘 Mindful Month | Log mood every day of a full calendar month |
-| 🌸 Resilient     | Burnout risk drops from High → Low          |
-| 🏅 Centurion     | 100-day streak on any single habit          |
-
-### Challenges (Phase 11)
-
-| Component         | Features                                                                        |
-| ----------------- | ------------------------------------------------------------------------------- |
-| `ChallengesPage`  | Browse public challenges, create (habit-linked or free-form), join via joinCode |
-| `ChallengeCard`   | Title, targetDays, participant count, active status, joinCode for private       |
-| `LeaderboardPage` | Ranked by completions, `isMe` flag highlights current user                      |
-
-**Two challenge types:**
-
-- **Habit-linked** — progress auto-advances when linked habit is completed
-- **Free-form** — participant manually calls `POST /challenges/:id/complete`
-
-### Community Feed (Phase 11)
-
-| Component           | Features                                                               |
-| ------------------- | ---------------------------------------------------------------------- |
-| `CommunityFeedPage` | Public feed (no auth required), sort by newest/popular, filter by type |
-| `CreatePostModal`   | type: MILESTONE or REFLECTION, content 10–500 chars, up to 5 tags      |
-
-**Anonymity note:** posts are anonymous by design — backend strips all identity. No `userId` is ever stored on post documents. Upvote deduplication uses irreversible HMAC-SHA256.
-
-### Billing — Razorpay Flow
-
-```
-1. POST /billing/order { plan: 'pro' } → { orderId, amount, currency, keyId }
-2. Dynamically load Razorpay SDK → open popup
-3. User pays → handler({ razorpayPaymentId, razorpayOrderId, razorpaySignature })
-4. POST /billing/verify { ...ids, plan } → { success: true, plan: 'pro' }
-5. dispatch(updateUserPlan('pro')) → all plan gates update instantly across entire app
-```
-
-| Component          | Features                                                         |
-| ------------------ | ---------------------------------------------------------------- |
-| `BillingPage`      | Current plan, renewal date, manage + cancel subscription         |
-| `PricingPlans`     | Free vs Pro vs Enterprise cards with feature lists + CTA buttons |
-| `RazorpayCheckout` | Creates order → loads SDK → opens popup → verify → dispatch plan |
-| `UpgradeBanner`    | Inline banner shown inside plan-gated features, links to billing |
+- GET /community is **public** — no auth required to browse
+- POST /community and POST /community/:id/upvote **require auth** (spam prevention)
+- Posts are **fully anonymous** — no userId stored, HMAC dedup for upvotes
+- `hasUpvoted` flag only present in response when authenticated
+- Upvote is **toggle** — call twice to remove
 
 ---
 
-## 🔒 Security Notes
+## 📋 Build Progress — All Phases Complete
 
-- Access tokens **never in localStorage** — Redux in-memory only (XSS safe)
-- Refresh tokens in `localStorage` — cleared on logout + reuse detection kills all sessions
-- All requests via `baseQueryWithReauth` — no scattered token handling anywhere
-- `RAZORPAY_KEY_SECRET` backend only — never in frontend env
-- `VITE_` env vars bundled into client build — never put secrets here
-- Community posts are anonymous — no userId sent or displayed anywhere in UI
-
----
-
-## 📋 Build Progress
-
-### ✅ Completed
-
-| Phase | Built                                                                                                                                    |
-| ----- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| 1     | Vite + React + TS scaffold, Tailwind dark theme, brand colors, `@/*` alias, folder structure                                             |
-| 2     | All TypeScript types — auth, mood, habit, ai, analytics, notifications, badges, challenges, community, billing                           |
-| 3     | Redux store + authSlice (accessToken in memory, refreshToken in localStorage, plan) + typed hooks                                        |
-| 4     | RTK Query baseApi with 401 interceptor + all API slices                                                                                  |
-| 5     | 10 shared UI components — Button, Input, Textarea, Badge, Modal, Spinner, Skeleton, Tabs, Tooltip, EmptyState                            |
-| 6     | Layout — AuthLayout, Sidebar, Topbar, AppLayout (mobile drawer + backdrop + auto-close)                                                  |
-| 7     | Router (all routes), ProtectedRoute (localStorage direct read), utility hooks + utils                                                    |
-| 8     | All 5 auth pages with Zod + password show/hide Eye toggle                                                                                |
-| 9a    | Mood module — DashboardPage, MoodDashboard, MoodLogForm, MoodHistory, MoodTrendChart, MoodInsights, BurnoutRiskCard + 4 chart components |
-| 9b    | MoodForecast + MoodSentiment (sentiment trends + divergence table)                                                                       |
-| 9c    | Bug fixes — wrong API URLs, BurnoutRiskCard crash, MoodInsights crash, HeatmapGrid tooltip clipping, hard refresh redirect               |
-| 10    | Habits module — all 11 components + DnD reorder + split update endpoints + Modal scroll fix + all API shape fixes                        |
-
-### 🔜 Remaining
-
-| Phase  | To Build                                                                                                                                                     |
-| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **11** | **AI (Insights, Suggestions, Chat, PlanGate) + Analytics (Correlation, HabitMatrix) + Notifications + Badges + Challenges + Community + Billing (Razorpay)** |
-| 12     | ProfilePage (preferences: mood reminder toggle, weekly digest toggle) + Error boundaries + 404 page + final polish                                           |
+| Phase | Built                                                                                            |
+| ----- | ------------------------------------------------------------------------------------------------ |
+| 1     | Vite + React + TS scaffold, Tailwind dark theme, brand colors, `@/*` alias, folder structure     |
+| 2     | All TypeScript types                                                                             |
+| 3     | Redux store + authSlice + typed hooks                                                            |
+| 4     | RTK Query baseApi with 401 interceptor + all API slices                                          |
+| 5     | 10 shared UI components                                                                          |
+| 6     | Layout — AuthLayout, Sidebar, Topbar, AppLayout                                                  |
+| 7     | Router, ProtectedRoute, utility hooks + utils                                                    |
+| 8     | All 5 auth pages                                                                                 |
+| 9     | Full Mood module (8 pages + charts)                                                              |
+| 10    | Full Habits module (11 components + DnD + all API fixes)                                         |
+| 11a   | AI module (AiInsightsPage, InsightCard, SuggestionsPanel, AiChatPage, AiPlanGate)                |
+| 11b   | Billing module (BillingPage, PricingPlans, RazorpayCheckout, UpgradeBanner)                      |
+| 11c   | Notifications (NotificationBell + NotificationDrawer wired into Topbar)                          |
+| 11d   | Analytics (CorrelationPage + HabitMatrixPage + analyticsApi + analytics.types)                   |
+| 11e   | Sidebar updated with Analytics/Badges/Challenges/Community nav links                             |
+| 11f   | Badges (BadgeShelfPage + badgeApi + badge.types)                                                 |
+| 11g   | Challenges (ChallengesPage + ChallengeCard + LeaderboardPage + JoinChallengePage + challengeApi) |
+| 11h   | Community (CommunityFeedPage + CreatePostModal + communityApi + community.types)                 |
+| 12    | ProfilePage + PreferencesForm + ErrorBoundary + NotFoundPage + Topbar page titles + baseApi tags |
 
 ---
 
@@ -834,19 +812,20 @@ Store conversationId in component state or localStorage
 
 Swagger UI: `http://localhost:5000/api-docs`
 
-| Module        | Endpoints  | Frontend Phase | Notes                                                                 |
-| ------------- | ---------- | -------------- | --------------------------------------------------------------------- |
-| Auth          | 9 (+prefs) | ✅ Done        | Dual-token JWT, OTP, rotation, reuse detection                        |
-| Mood          | 15         | ✅ Done        | Analytics, burnout risk, heatmap, forecast, sentiment trends          |
-| Habits        | 15         | ✅ Done        | Streak engine, milestone detection, DnD reorder, email reminders      |
-| Notifications | 4          | 🔜 Phase 11    | Unread count + paginated list + mark read                             |
-| Analytics     | 2          | 🔜 Phase 11    | Mood ↔ habit lift, co-completion matrix                               |
-| AI            | 3          | 🔜 Phase 11    | Insights (cached), suggestions (cached), coach chat (MongoDB history) |
-| Badges        | 1          | 🔜 Phase 11    | 6 badges, earned + locked shelf                                       |
-| Challenges    | 7          | 🔜 Phase 11    | Public/private, habit-linked, leaderboard                             |
-| Community     | 3          | 🔜 Phase 11    | Anonymous feed, HMAC upvote deduplication                             |
-| Billing       | 5          | 🔜 Phase 11    | Razorpay order + verify + webhook + cancel                            |
+| Module        | Endpoints | Frontend Status | Notes                                                  |
+| ------------- | --------- | --------------- | ------------------------------------------------------ |
+| Auth          | 11        | ✅ Done         | Dual-token JWT, OTP, rotation, preferences, pw change  |
+| Mood          | 15        | ✅ Done         | Analytics, burnout risk, heatmap, forecast, sentiment  |
+| Habits        | 15        | ✅ Done         | Streak engine, milestone detection, DnD reorder        |
+| AI            | 3         | ✅ Done         | Insights (cached), suggestions (cached), coach chat    |
+| Analytics     | 2         | ✅ Done         | Mood ↔ habit lift, co-completion matrix                |
+| Notifications | 4         | ✅ Done         | Bell polling + drawer + mark read                      |
+| Billing       | 5         | ✅ Done         | Razorpay order + verify + cancel                       |
+| Badges        | 1         | ✅ Done         | 6 badges, earned + locked shelf                        |
+| Challenges    | 7         | ✅ Done         | Public/private, habit-linked, leaderboard, invite link |
+| Community     | 3         | ✅ Done         | Anonymous feed, HMAC upvote deduplication              |
+| Milestones    | 1         | 🔜 Optional     | GET /api/milestones — achievement timeline             |
 
 ---
 
-_Last updated: March 2026 — Phases 1–10 complete. Phase 11 (AI + Notifications + Badges + Challenges + Community + Billing) is next._
+_Last updated: March 2026 — All Phases 1–12 complete._

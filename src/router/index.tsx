@@ -4,14 +4,14 @@ import { AppLayout } from "@/components/layout/AppLayout";
 import { AuthLayout } from "@/components/layout/AuthLayout";
 import { ProtectedRoute } from "@/features/auth/ProtectedRoute";
 
-// Auth pages
+// Auth
 import { RegisterPage } from "@/features/auth/RegisterPage";
 import { VerifyEmailPage } from "@/features/auth/VerifyEmailPage";
 import { LoginPage } from "@/features/auth/LoginPage";
 import { ForgotPasswordPage } from "@/features/auth/ForgotPasswordPage";
 import { ResetPasswordPage } from "@/features/auth/ResetPasswordPage";
 
-// Mood pages
+// Mood
 import { MoodDashboard } from "@/features/mood/MoodDashboard";
 import { MoodHistory } from "@/features/mood/MoodHistory";
 import { MoodTrendChart } from "@/features/mood/MoodTrendChart";
@@ -20,26 +20,36 @@ import { BurnoutRiskCard } from "@/features/mood/BurnoutRiskCard";
 import { MoodForecast } from "@/features/mood/MoodForecast";
 import { MoodSentiment } from "@/features/mood/MoodSentiment";
 
-// Habit pages
+// Habits
 import { HabitDashboard } from "@/features/habits/HabitDashboard";
 import { HabitDetailPage } from "@/features/habits/HabitDetailPage";
 import { ArchivedHabits } from "@/features/habits/ArchivedHabits";
 
-// AI pages
+// AI
 import { AiInsightsPage } from "@/features/ai/AiInsightsPage";
 import { AiChatPage } from "@/features/ai/AiChatPage";
 
-// Analytics pages ← Phase 11
+// Analytics
 import { CorrelationPage } from "@/features/analytics/CorrelationPage";
 import { HabitMatrixPage } from "@/features/analytics/HabitMatrixPage";
 
-// Other pages
-import { BillingPage } from "@/features/billing/BillingPage";
+// Phase 11
+import BadgeShelfPage from "@/features/badges/BadgeShelfPage";
+import ChallengesPage from "@/features/challenges/ChallengesPage";
+import LeaderboardPage from "@/features/challenges/LeaderboardPage";
+import JoinChallengePage from "@/features/challenges/JoinChallengePage";
+import CommunityFeedPage from "@/features/community/CommunityFeedPage";
+
+// Phase 12
 import { ProfilePage } from "@/features/profile/ProfilePage";
+import { NotFoundPage } from "@/features/errors/NotFoundPage";
+
+// Other
+import { BillingPage } from "@/features/billing/BillingPage";
 import { DashboardPage } from "../features/dashboard/DashboardPage";
 
 export const router = createBrowserRouter([
-  // ── Public routes ───────────────────────────────────────────────
+  // ── Public ─────────────────────────────────────────────────────
   {
     path: "/register",
     element: (
@@ -81,14 +91,19 @@ export const router = createBrowserRouter([
     ),
   },
 
-  // ── Protected routes ────────────────────────────────────────────
+  // Challenge invite — handles own auth redirect
+  { path: "/join", element: <JoinChallengePage /> },
+
+  // 404
+  { path: "/404", element: <NotFoundPage /> },
+
+  // ── Protected ───────────────────────────────────────────────────
   {
     element: <ProtectedRoute />,
     children: [
       {
         element: <AppLayout />,
         children: [
-          // Dashboard
           { path: "/app/dashboard", element: <DashboardPage /> },
 
           // Mood
@@ -109,13 +124,21 @@ export const router = createBrowserRouter([
           { path: "/app/ai", element: <AiInsightsPage /> },
           { path: "/app/ai/chat", element: <AiChatPage /> },
 
-          // Analytics ← Phase 11
+          // Analytics
           { path: "/app/analytics", element: <CorrelationPage /> },
           { path: "/app/analytics/matrix", element: <HabitMatrixPage /> },
 
-          // Other
-          { path: "/app/billing", element: <BillingPage /> },
+          // Phase 11
+          { path: "/app/badges", element: <BadgeShelfPage /> },
+          { path: "/app/challenges", element: <ChallengesPage /> },
+          { path: "/app/challenges/:id", element: <LeaderboardPage /> },
+          { path: "/app/community", element: <CommunityFeedPage /> },
+
+          // Phase 12
           { path: "/app/profile", element: <ProfilePage /> },
+
+          // Billing
+          { path: "/app/billing", element: <BillingPage /> },
         ],
       },
     ],
@@ -123,5 +146,5 @@ export const router = createBrowserRouter([
 
   // ── Redirects ───────────────────────────────────────────────────
   { path: "/", element: <Navigate to="/app/dashboard" replace /> },
-  { path: "*", element: <Navigate to="/login" replace /> },
+  { path: "*", element: <NotFoundPage /> }, // real 404 instead of redirect to /login
 ]);

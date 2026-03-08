@@ -1,5 +1,10 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { AuthState, TokenResponse, Plan } from "@/types/auth.types";
+import type {
+  AuthState,
+  TokenResponse,
+  Plan,
+  Preferences,
+} from "@/types/auth.types";
 
 const initialState: AuthState = {
   user: null,
@@ -37,6 +42,19 @@ const authSlice = createSlice({
       if (state.user) state.user.plan = action.payload;
     },
 
+    // Updates preferences in Redux after PATCH /auth/me/preferences
+    updateUserPreferences: (
+      state,
+      action: PayloadAction<Partial<Preferences>>,
+    ) => {
+      if (state.user) {
+        state.user.preferences = {
+          ...state.user.preferences,
+          ...action.payload,
+        };
+      }
+    },
+
     logout: (state) => {
       state.user = null;
       state.accessToken = null;
@@ -47,7 +65,12 @@ const authSlice = createSlice({
   },
 });
 
-export const { setCredentials, updateAccessToken, updateUserPlan, logout } =
-  authSlice.actions;
+export const {
+  setCredentials,
+  updateAccessToken,
+  updateUserPlan,
+  updateUserPreferences,
+  logout,
+} = authSlice.actions;
 
 export default authSlice.reducer;
