@@ -3,6 +3,10 @@
     {
       "source": "/api/:path*",
       "destination": "http://pulsebloom-alb-1830785026.ap-south-1.elb.amazonaws.com/api/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
